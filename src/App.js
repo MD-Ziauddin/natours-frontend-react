@@ -1,22 +1,24 @@
 import Footer from "./components/Footer";
 import { Switch, Route } from "react-router-dom";
 
+import { Provider } from "./context/State";
+
 import Header from "./components/Header";
+import Overview from "./components/Overview";
 
 import "./styles/style.css";
-import Overview from "./components/Overview";
 
 function App() {
   return (
-    <div>
+    <Provider>
       <Route component={Header} />
 
-      <switch>
+      <Switch>
         <Route exact path="/" component={Overview} />
-      </switch>
+      </Switch>
 
       <Route component={Footer} />
-    </div>
+    </Provider>
   );
 }
 
