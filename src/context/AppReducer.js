@@ -3,7 +3,7 @@ export default (state, action) => {
     case "ADD_TOURS":
       return {
         ...state,
-        tours: [...state.tours, action.payload],
+        tours: [...state.tours, ...action.payload],
       };
 
     default:

@@ -7,23 +7,25 @@ import { Card } from "./Card";
 function Overview() {
   const url = `http://localhost:5000/api/v1/tours`;
 
-  const [tours, setTours] = useState([]);
-
-  const { addTours, Tours } = useContext(Context);
+  const { addTours, tours } = useContext(Context);
 
   useEffect(() => {
     async function fetchdata() {
-      const response = await axios({
-        method: "get",
-        url,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-          "Access-Control-Allow-Headers":
-            "Origin, X-Requested-With, Content-Type: Accept",
-        },
-      });
-      setTours(response.data.data.tours);
+      try {
+        const response = await axios({
+          method: "get",
+          url,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+            "Access-Control-Allow-Headers":
+              "Origin, X-Requested-With, Content-Type: Accept",
+          },
+        });
+        addTours(response.data.data.tours);
+      } catch (err) {
+        alert("Something went wrong!!! Contact Admin");
+      }
     }
     fetchdata();
   }, []);
