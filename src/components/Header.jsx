@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import Logo from "../assets/logo-white.png";
 
@@ -8,9 +9,9 @@ function Header() {
     <div>
       <header className="header">
         <nav className="nav nav--tours">
-          <a href="#" className="nav__el">
+          <Link to="/" className="nav__el">
             All tours
-          </a>
+          </Link>
         </nav>
 
         <div className="header__logo">

@@ -1,8 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-import images from "../dev-data/img/new-tour-2.jpg";
-
-export const Card = ({ tour }) => {
+export const Card = ({ tour, url }) => {
+  const imageUrl = `${url}/img/tours`;
   return (
     <div>
       <div className="card">
@@ -10,7 +10,7 @@ export const Card = ({ tour }) => {
           <div className="card__picture">
             <div className="card__picture-overlay">&nbsp;</div>
             <img
-              src={images}
+              src={`${imageUrl}/${tour.imageCover}`}
               alt={`${tour.name}`}
               className="card__picture-img"
             />
@@ -25,7 +25,9 @@ export const Card = ({ tour }) => {
           <p class="card__text">{tour.summary}</p>
           <div class="card__data">
             <svg class="card__icon">
+              <use xlinkHref={`${url}/img/icons.svg#icon-map-pin`} />
               {/* <use xlink:href="img/icons.svg#icon-map-pin"></use> */}
+              {/* <img src={`${url}/img/icons.svg#icon-map-pin`} alt="" /> */}
             </svg>
             <span>{tour.startLocation.description}</span>
           </div>
@@ -63,9 +65,12 @@ export const Card = ({ tour }) => {
             <span class="card__footer-value">4.9</span>
             <span class="card__footer-text">rating (21)</span>
           </p>
-          <a href="#" class="btn btn--green btn--small">
+          <Link to={`/${tour.id}`} className="btn btn--green btn--small">
             Details
-          </a>
+          </Link>
+          {/* <a href="#" class="btn btn--green btn--small">
+            Details
+          </a> */}
         </div>
       </div>
     </div>

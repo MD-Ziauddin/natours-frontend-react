@@ -5,6 +5,7 @@ import AppReducer from "./AppReducer";
 // Initial State
 const initialState = {
   tours: [],
+  tour: {},
 };
 
 // Create Context
@@ -22,8 +23,17 @@ export const Provider = ({ children }) => {
     });
   }
 
+  function addTour(tour) {
+    dispatch({
+      type: "ADD_TOUR",
+      payload: tour,
+    });
+  }
+
   return (
-    <Context.Provider value={{ tours: state.tours, addTours }}>
+    <Context.Provider
+      value={{ tours: state.tours, tour: state.tour, addTours, addTour }}
+    >
       {children}
     </Context.Provider>
   );

@@ -6,6 +6,12 @@ export default (state, action) => {
         tours: [...state.tours, ...action.payload],
       };
 
+    case "ADD_TOUR":
+      return {
+        ...state,
+        tour: action.payload,
+      };
+
     default:
       return state;
   }

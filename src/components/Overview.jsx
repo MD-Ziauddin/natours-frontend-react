@@ -5,7 +5,7 @@ import { Context } from "../context/State";
 import { Card } from "./Card";
 
 function Overview() {
-  const url = `http://localhost:5000/api/v1/tours`;
+  const url = `http://localhost:5000`;
 
   const { addTours, tours } = useContext(Context);
 
@@ -14,7 +14,7 @@ function Overview() {
       try {
         const response = await axios({
           method: "get",
-          url,
+          baseURL: `${url}/api/v1/tours`,
           headers: {
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
@@ -35,7 +35,7 @@ function Overview() {
       <main className="main">
         <div className="card-container">
           {tours.map((tour) => {
-            return <Card tour={tour} key={tour._id} />;
+            return <Card tour={tour} key={tour._id} url={url} />;
           })}
         </div>
       </main>

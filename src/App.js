@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import Overview from "./components/Overview";
 
 import "./styles/style.css";
+import { Tour } from "./components/Tour";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
 
       <Switch>
         <Route exact path="/" component={Overview} />
+        <Route exact path="/:id" component={Tour} />
       </Switch>
 
       <Route component={Footer} />
