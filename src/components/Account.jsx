@@ -1,17 +1,80 @@
 import React, { useContext, useState } from "react";
+import { AxiosApi } from "../AxiosApi";
 import { Context } from "../context/State";
 
 export const Account = () => {
   const url = `http://localhost:5000`;
-  const { user } = useContext(Context);
+  const { user, addUser } = useContext(Context);
 
   const [value, setValue] = useState({
-    name: "",
-    email: "",
+    name: user?.name,
+    email: user?.email,
     currentPassword: "",
     newPassword: "",
     confirmPassword: "",
   });
+
+  async function fetchdata(route) {
+    let data = {};
+    if (route === "updateMe") {
+      data = {
+        name: value.name,
+        email: value.email,
+      };
+    } else if (route === "updateMyPassword") {
+      data = {
+        currentPassword: value.currentPassword,
+        newPassword: value.newPassword,
+        confirmPassword: value.confirmPassword,
+      };
+    }
+    try {
+      const response = await AxiosApi({
+        url: `/api/v1/users/${route}`,
+        method: "patch",
+        data,
+      });
+      addUser(response.data.data.user);
+    } catch (err) {
+      alert("Something went wrong!!! Contact Admin");
+      console.log(err.message);
+    }
+  }
+
+  const updateAccount = (e) => {
+    e.preventDefault();
+    fetchdata("updateMe");
+  };
+
+  const changePasswordsSubmit = (e) => {
+    e.preventDefault();
+    fetchdata("updateMyPassword");
+  };
+
+  const changeName = (e) => {
+    e.preventDefault();
+    setValue({ ...value, name: e.target.value });
+  };
+
+  const changeEmail = (e) => {
+    e.preventDefault();
+    setValue({ ...value, email: e.target.value });
+  };
+
+  const changeCurrentPassword = (e) => {
+    e.preventDefault();
+    setValue({ ...value, currentPassword: e.target.value });
+  };
+
+  const changePassword = (e) => {
+    e.preventDefault();
+    setValue({ ...value, newPassword: e.target.value });
+  };
+
+  const changeConfirmPassword = (e) => {
+    e.preventDefault();
+    setValue({ ...value, confirmPassword: e.target.value });
+  };
 
   return (
     <div>
@@ -53,7 +116,7 @@ export const Account = () => {
               </li>
             </ul>
 
-            {user.role === "admin" ? (
+            {user?.role === "admin" ? (
               <div className="admin-nav">
                 <h5 className="admin-nav__heading">Admin</h5>
                 <ul class="side-nav">
@@ -98,7 +161,7 @@ export const Account = () => {
           <div class="user-view__content">
             <div class="user-view__form-container">
               <h2 class="heading-secondary ma-bt-md">Your account settings</h2>
-              <form class="form form-user-data">
+              <form class="form form-user-data" onSubmit={updateAccount}>
                 <div class="form__group">
                   <label class="form__label" for="name">
                     Name
@@ -107,7 +170,8 @@ export const Account = () => {
                     class="form__input"
                     id="name"
                     type="text"
-                    value={user.name}
+                    value={value.name}
+                    onChange={changeName}
                     required
                     name="name"
                   />
@@ -120,7 +184,8 @@ export const Account = () => {
                     class="form__input"
                     id="email"
                     type="email"
-                    value={user.email}
+                    value={value.email}
+                    onChange={changeEmail}
                     required
                     name="email"
                   />
@@ -141,7 +206,7 @@ export const Account = () => {
                   <label for="photo">Choose new photo</label>
                 </div>
                 <div class="form__group right">
-                  <button class="btn btn--small btn--green">
+                  <button class="btn btn--small btn--green" type="submit">
                     Save settings
                   </button>
                 </div>
@@ -150,7 +215,10 @@ export const Account = () => {
             <div class="line">&nbsp;</div>
             <div class="user-view__form-container">
               <h2 class="heading-secondary ma-bt-md">Password change</h2>
-              <form class="form form-user-password">
+              <form
+                class="form form-user-password"
+                onSubmit={changePasswordsSubmit}
+              >
                 <div class="form__group">
                   <label class="form__label" for="password-current">
                     Current password
@@ -160,6 +228,8 @@ export const Account = () => {
                     id="password-current"
                     type="password"
                     placeholder="••••••••"
+                    value={value.currentPassword}
+                    onChange={changeCurrentPassword}
                     required
                     minlength="8"
                   />
@@ -172,6 +242,8 @@ export const Account = () => {
                     class="form__input"
                     id="password"
                     type="password"
+                    value={value.newPassword}
+                    onChange={changePassword}
                     placeholder="••••••••"
                     required
                     minlength="8"
@@ -185,6 +257,8 @@ export const Account = () => {
                     class="form__input"
                     id="password-confirm"
                     type="password"
+                    value={value.confirmPassword}
+                    onChange={changeConfirmPassword}
                     placeholder="••••••••"
                     required
                     minlength="8"
