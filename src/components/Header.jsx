@@ -50,14 +50,16 @@ function Header() {
               <button className="nav__el nav__el--logout" onClick={logOut}>
                 Log out
               </button>
-              <a href="#" className="nav__el">
+              {/* <a href="#" className="nav__el"> */}
+              <Link to="/account" className="nav__el">
                 <img
                   src={`${url}/img/users/user-17.jpg`}
                   alt="#"
                   className="nav__user-img"
                 />
                 <span>{user.name}</span>
-              </a>
+              </Link>
+              {/* </a> */}
             </>
           ) : (
             <>

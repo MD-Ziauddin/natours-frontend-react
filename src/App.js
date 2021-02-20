@@ -9,6 +9,7 @@ import Overview from "./components/Overview";
 import "./styles/style.css";
 import { Tour } from "./components/Tour";
 import { Login } from "./components/Login";
+import { Account } from "./components/Account";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route exact path="/" component={Overview} />
         <Route exact path="/tour/:id" component={Tour} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/account" component={Account} />
       </Switch>
 
       <Route component={Footer} />
