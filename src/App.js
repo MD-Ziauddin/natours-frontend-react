@@ -8,6 +8,7 @@ import Overview from "./components/Overview";
 
 import "./styles/style.css";
 import { Tour } from "./components/Tour";
+import { Login } from "./components/Login";
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
 
       <Switch>
         <Route exact path="/" component={Overview} />
-        <Route exact path="/:id" component={Tour} />
+        <Route exact path="/tour/:id" component={Tour} />
+        <Route exact path="/login" component={Login} />
       </Switch>
 
       <Route component={Footer} />

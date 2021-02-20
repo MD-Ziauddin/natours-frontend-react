@@ -16,6 +16,8 @@ export const Tour = (props) => {
         const response = await axios({
           method: "get",
           baseURL: `${url}/api/v1/tours/${id}`,
+          withCredentials: true,
+          credentials: "include",
           headers: {
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",

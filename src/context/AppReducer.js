@@ -12,6 +12,18 @@ export default (state, action) => {
         tour: action.payload,
       };
 
+    case "ADD_USER":
+      return {
+        ...state,
+        user: action.payload,
+      };
+
+    case "REMOVE_USER":
+      return {
+        ...state,
+        user: action.payload,
+      };
+
     default:
       return state;
   }

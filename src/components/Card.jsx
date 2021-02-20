@@ -65,7 +65,7 @@ export const Card = ({ tour, url }) => {
             <span class="card__footer-value">4.9</span>
             <span class="card__footer-text">rating (21)</span>
           </p>
-          <Link to={`/${tour.id}`} className="btn btn--green btn--small">
+          <Link to={`/tour/${tour.id}`} className="btn btn--green btn--small">
             Details
           </Link>
           {/* <a href="#" class="btn btn--green btn--small">

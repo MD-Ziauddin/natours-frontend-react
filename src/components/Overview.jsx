@@ -15,6 +15,9 @@ function Overview() {
         const response = await axios({
           method: "get",
           baseURL: `${url}/api/v1/tours`,
+          // credentials: "same-origin",
+          withCredentials: true,
+          credentials: "include",
           headers: {
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",

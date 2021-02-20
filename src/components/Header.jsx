@@ -1,10 +1,36 @@
-import React from "react";
+import axios from "axios";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
 import Logo from "../assets/logo-white.png";
+import { Context } from "../context/State";
 
 function Header() {
-  const User = null;
+  const url = "http://localhost:5000";
+
+  const { user, removeUser } = useContext(Context);
+
+  const logOut = async () => {
+    try {
+      const response = await axios({
+        method: "get",
+        baseURL: `${url}/api/v1/users/logout`,
+        withCredentials: true,
+        credentials: "include",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+          "Access-Control-Allow-Headers":
+            "Origin, X-Requested-With, Content-Type: Accept",
+        },
+      });
+      removeUser();
+      alert("Log out successfully");
+    } catch (err) {
+      alert("Something went wrong!!! Contact Admin");
+    }
+  };
+
   return (
     <div>
       <header className="header">
@@ -19,25 +45,29 @@ function Header() {
         </div>
 
         <nav className="nav nav--user">
-          {User ? (
-            <div>
-              <a href="#" className="nav__el nav__el--logout">
+          {user ? (
+            <>
+              <button className="nav__el nav__el--logout" onClick={logOut}>
                 Log out
-              </a>
+              </button>
               <a href="#" className="nav__el">
-                <img src="#" alt="#" className="nav__user-img" />
-                <span>user name</span>
+                <img
+                  src={`${url}/img/users/user-17.jpg`}
+                  alt="#"
+                  className="nav__user-img"
+                />
+                <span>{user.name}</span>
               </a>
-            </div>
+            </>
           ) : (
-            <div>
-              <a href="#" className="nav__el">
+            <>
+              <Link to="/login" className="nav__el">
                 Log in
-              </a>
+              </Link>
               <a href="#" className="nav__el nav__el--cta">
                 Sign up
               </a>
-            </div>
+            </>
           )}
         </nav>
       </header>
