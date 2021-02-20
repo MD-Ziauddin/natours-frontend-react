@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useContext, useEffect } from "react";
+import { AxiosApi } from "../AxiosApi";
 import { Context } from "../context/State";
 
 export const Tour = (props) => {
@@ -13,27 +14,17 @@ export const Tour = (props) => {
   useEffect(() => {
     async function fetchdata() {
       try {
-        const response = await axios({
-          method: "get",
-          baseURL: `${url}/api/v1/tours/${id}`,
-          withCredentials: true,
-          credentials: "include",
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-            "Access-Control-Allow-Headers":
-              "Origin, X-Requested-With, Content-Type: Accept",
-          },
+        const response = await AxiosApi({
+          url: `/api/v1/tours/${id}`,
         });
         addTour(response.data.data.tour);
       } catch (err) {
-        alert("Something went wrong!!! Contact Admin");
+        // alert("Something went wrong!!! Contact Admin");
+        console.log(err);
       }
     }
     fetchdata();
   }, []);
-
-  console.log(tour.reviews);
 
   return (
     <div>

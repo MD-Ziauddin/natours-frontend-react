@@ -1,9 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../context/State";
 
 export const Account = () => {
   const url = `http://localhost:5000`;
   const { user } = useContext(Context);
+
+  const [value, setValue] = useState({
+    name: "",
+    email: "",
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
 
   return (
     <div>

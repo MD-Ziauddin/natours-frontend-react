@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { AxiosApi } from "../AxiosApi";
 import { Context } from "../context/State";
 
 export const Login = () => {
@@ -16,17 +17,9 @@ export const Login = () => {
   // Submit to API
   async function fetchdata() {
     try {
-      const response = await axios({
+      const response = await AxiosApi({
+        url: "/api/v1/users/login",
         method: "post",
-        baseURL: `${url}/api/v1/users/login`,
-        withCredentials: true,
-        credentials: "include",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-          "Access-Control-Allow-Headers":
-            "Origin, X-Requested-With, Content-Type: Accept",
-        },
         data: {
           email: value.email,
           password: value.password,
