@@ -23,9 +23,9 @@ export const Account = () => {
       };
     } else if (route === "updateMyPassword") {
       data = {
-        currentPassword: value.currentPassword,
-        newPassword: value.newPassword,
-        confirmPassword: value.confirmPassword,
+        passwordCurrent: value.currentPassword,
+        password: value.newPassword,
+        passwordConfirm: value.confirmPassword,
       };
     }
     try {
@@ -35,9 +35,10 @@ export const Account = () => {
         data,
       });
       addUser(response.data.data.user);
+      alert("Update successful");
     } catch (err) {
       alert("Something went wrong!!! Contact Admin");
-      console.log(err.message);
+      console.log(err);
     }
   }
 
@@ -265,7 +266,10 @@ export const Account = () => {
                   />
                 </div>
                 <div class="form__group right">
-                  <button class="btn btn--small btn--green btn--save-password">
+                  <button
+                    class="btn btn--small btn--green btn--save-password"
+                    onSubmit={changePasswordsSubmit}
+                  >
                     Save password
                   </button>
                 </div>

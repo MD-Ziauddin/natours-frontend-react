@@ -32,6 +32,7 @@ export const Login = () => {
       }, 100);
     } catch (err) {
       alert("Something went wrong!!! Contact Admin");
+      console.log(err);
     }
   }
 
