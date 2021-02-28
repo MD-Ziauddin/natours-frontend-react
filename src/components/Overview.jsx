@@ -18,6 +18,7 @@ function Overview() {
         addTours(response.data.data.tours);
       } catch (err) {
         alert("Something went wrong!!! Contact Admin");
+        console.log(err);
       }
     }
     fetchdata();
